@@ -1,12 +1,11 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 
-const PORT = process.env.PORT || 3000;
-const HOST = '0.0.0.0';
+const port = process.env.PORT || 4000 
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app.enableShutdownHooks()
-  await app.listen(PORT, HOST)
+  await app.listen(PORT)
 }
 bootstrap()
