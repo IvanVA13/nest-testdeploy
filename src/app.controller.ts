@@ -100,40 +100,4 @@ export class AppController {
       },
     });
   }
-
-  @Put('publish/:id')
-  async togglePublishPost(@Param('id') id: string): Promise<PostModel> {
-    const postData = await this.prismaService
-      .extendedPrismaClient()
-      .post.findUnique({
-        where: { id: Number(id) },
-        select: {
-          published: true,
-        },
-      });
-
-    return this.prismaService.extendedPrismaClient().post.update({
-      where: { id: Number(id) || undefined },
-      data: { published: !postData?.published },
-    });
-  }
-
-  @Delete('post/:id')
-  async deletePost(@Param('id') id: string): Promise<PostModel> {
-    return this.prismaService
-      .extendedPrismaClient()
-      .post.delete({ where: { id: Number(id) } });
-  }
-
-  @Put('/post/:id/views')
-  async incrementPostViewCount(@Param('id') id: string): Promise<PostModel> {
-    return this.prismaService.extendedPrismaClient().post.update({
-      where: { id: Number(id) },
-      data: {
-        viewCount: {
-          increment: 1,
-        },
-      },
-    });
-  }
 }
